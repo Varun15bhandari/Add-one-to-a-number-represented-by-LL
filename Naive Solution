@@ -1,0 +1,63 @@
+/*Definition of singly linked list:
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
+        val = 0;
+        next = null;
+    }
+
+    ListNode(int data1) {
+        val = data1;
+        next = null;
+    }
+
+    ListNode(int data1, ListNode next1) {
+        val = data1;
+        next = next1;
+    }
+}
+ */
+
+class Solution {
+    public ListNode reverseList(ListNode head){
+        ListNode temp=head;
+        ListNode prev=null;
+        ListNode front=null;
+        while(temp!=null){
+            front=temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=front;
+        }
+        return prev;
+    }
+    public ListNode addOne(ListNode head) {
+         head=reverseList(head);
+       ListNode temp=head;
+       int carry=1;
+       while(temp!=null){
+        temp.val=temp.val+carry;
+        if(temp.val<10){
+            carry=0;
+            break;
+        }else{
+            temp.val=0;
+            carry=1;
+        }
+        temp=temp.next;
+       }
+       if (carry == 1) {
+            ListNode newNode = new ListNode(1);
+            newNode.next = head;
+            head = newNode;
+        } else {
+            // Reverse the list back to original order
+            head = reverseList(head);
+        }
+     
+       return head;
+       
+    }
+}
